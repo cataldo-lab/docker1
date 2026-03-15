@@ -1,0 +1,75 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+ENV PORT=3000
+EXPOSE 3000
+
+# Hot reload para desarrollo
+CMD ["npm", "start"]
+
+
+
+# Configuración básica de eventos de Nginx
+#events {
+  # Número máximo de conexiones simultáneas que puede manejar cada worker
+#  worker_connections 1024;
+#}
+
+#http {
+
+  # Incluye los tipos MIME estándar (html, css, js, etc.)
+#  include mime.types;
+
+  # Definición de un upstream llamado "backend"
+  # Esto permite que Nginx redirija tráfico a otro servicio
+  # En Docker Compose "backend" es el nombre del contenedor
+#  upstream backend {
+#    server backend:3001;  # Contenedor backend escuchando en puerto 3001
+#  }
+
+#  server {
+
+    # Puerto en el que Nginx escuchará
+#    listen 80;
+
+    # ---------------------------
+    # SERVIR EL FRONTEND
+    # ---------------------------
+
+#    location / {
+
+      # Carpeta donde está el build del frontend (React/Vite)
+#      root /usr/share/nginx/html;
+
+      # Archivo principal
+#      index index.html;
+
+      # SPA fallback:
+      # Si la ruta no existe como archivo real,
+      # se redirige a index.html para que React maneje la ruta
+#      try_files $uri $uri/ /index.html;
+#    }
+
+    # ---------------------------
+    # PROXY AL BACKEND
+    # ---------------------------
+
+#    location /api/ {
+
+      # Envía las solicitudes a nuestro backend
+#      proxy_pass http://backend;
+
+      # Mantiene el host original de la solicitud
+#      proxy_set_header Host $host;
+
+      # Envía la IP real del cliente al backend
+#      proxy_set_header X-Real-IP $remote_addr;
+#    }
+#  }
+#}
