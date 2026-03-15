@@ -1,5 +1,5 @@
 {
-  "name": "muebles-lopez-backend",
+  "name": "docker1-backend",
   "version": "1.0.0",
   "scripts": {
     "dev": "nodemon src/server.ts",
